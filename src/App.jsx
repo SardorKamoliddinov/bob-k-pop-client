@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react'
+import Navbar from './components/navbar/Navbar'
 
-function App() {
+const App = () => {
+
+  /*This code will makes sure that if you choose dark and refresh the website it will still be dark mode*/
+   const current_theme = localStorage.getItem('current_theme');
+   
+  //dark mode & light mode
+  const [theme, setTheme] = useState(current_theme? current_theme :'light'); 
+
+  useEffect(() => {
+    localStorage.setItem('current_theme', theme);
+  }, [theme])
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reoad.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={`container ${theme}`}>
+      <Navbar theme={theme} setTheme = {setTheme}/>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
